@@ -21,6 +21,7 @@ Mode = 'train'
 DEBUG = 'True'
 DATASET = 'PEMSD8'
 DEVICE = 'cuda:0'
+MODEL = 'AGCRN'
 
 #get configuration
 config_file = './{}.conf'.format(DATASET)
