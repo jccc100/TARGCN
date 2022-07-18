@@ -12,7 +12,7 @@ School of Computer and Communication Engineering,
 Changsha University of Science and Technology
 Email: jc2428@qq.com
 
-=====================================================================
+=====================================================================\
 Overview:
 
 This package contains the implemention of algorithm TARGCN.  
