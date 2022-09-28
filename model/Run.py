@@ -21,7 +21,7 @@ Mode = 'train'
 DEBUG = 'True'
 DATASET = 'PEMSD8'
 DEVICE = 'cuda:0'
-MODEL = 'AGCRN'
+MODEL = 'TARGCN'
 
 #get configuration
 config_file = './{}.conf'.format(DATASET)
@@ -105,24 +105,24 @@ def get_adjacent_matrix(distance_file: str, num_nodes: int, id_file: str = None,
     :return:
         np.array(N, N)
     """
-    A = np.zeros([int(num_nodes), int(num_nodes)])  # 构造全0的邻接矩阵
+    A = np.zeros([int(num_nodes), int(num_nodes)])  
 
-    if id_file:  # 就是给节点排序的绝对文件，这里是None，则表示不需要
+    if id_file:  
         with open(id_file, "r") as f_id:
-            # 将绝对编号用enumerate()函数打包成一个索引序列，然后用node_id这个绝对编号做key，用idx这个索引做value
+            
             node_id_dict = {int(node_id): idx for idx, node_id in enumerate(f_id.read().strip().split("\n"))}
 
             with open(distance_file, "r") as f_d:
-                f_d.readline() # 表头，跳过第一行.
-                reader = csv.reader(f_d) # 读取.csv文件.
-                for item in reader:   # 将一行给item组成列表
-                    if len(item) != 3: # 长度应为3，不为3则数据有问题，跳过
+                f_d.readline()
+                reader = csv.reader(f_d)
+                for item in reader:   
+                    if len(item) != 3: 
                         continue
-                    i, j, distance = int(item[0]), int(item[1]), float(item[2]) # 节点i，节点j，距离distance
-                    if graph_type == "connect":  # 这个就是将两个节点的权重都设为1，也就相当于不要权重
+                    i, j, distance = int(item[0]), int(item[1]), float(item[2]) 
+                    if graph_type == "connect": 
                         A[node_id_dict[i], node_id_dict[j]] = 1.
                         A[node_id_dict[j], node_id_dict[i]] = 1.
-                    elif graph_type == "distance":  # 这个是有权重，下面是权重计算方法
+                    elif graph_type == "distance":  
                         A[node_id_dict[i], node_id_dict[j]] = 1. / distance
                         A[node_id_dict[j], node_id_dict[i]] = 1. / distance
                     else:
