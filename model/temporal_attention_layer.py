@@ -1,5 +1,5 @@
 # _*_ coding: utf-8 _*_
-
+import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
